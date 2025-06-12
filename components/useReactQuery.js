@@ -7,11 +7,15 @@ export default function useReactQuery(url) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
       (async () => {
         try {
           setLoading(true);
           setError(false);
+
+        //   // Construct final URL safely
+        //   const query = search.trim() ? `?${search}` : '';
+        //   const finalUrl = `${baseUrl}${query}`;
+
           const res = await axios.get(url);
           setData(res.data);
         } catch (err) {
@@ -20,8 +24,7 @@ export default function useReactQuery(url) {
           setLoading(false);
         }
       })();
-    }, 3000);
-    return () => clearTimeout(timer);
+
   }, [url]);
 
   return [data, error, loading];
